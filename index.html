@@ -1,0 +1,110 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="referrer" content="no-referrer">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self'; connect-src 'none'; img-src 'self' data:; font-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self'">
+  <meta name="description" content="Garvee 联盟营销经营驾驶舱公开演示版">
+  <title>Garvee Affiliate Intelligence</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <aside class="sidebar">
+    <a class="brand" href="#overview" aria-label="回到概览"><span class="brand-mark">G</span><span>GARVEE<br><small>Affiliate Intelligence</small></span></a>
+    <nav aria-label="主要导航">
+      <a class="active" href="#overview"><span>01</span>经营概览</a>
+      <a href="#compare"><span>02</span>周期对比</a>
+      <a href="#drivers"><span>03</span>变化归因</a>
+      <a href="#drilldown"><span>04</span>下探分析</a>
+      <a href="#publishers"><span>05</span>联盟客主数据</a>
+      <a href="#portfolio"><span>06</span>类型与品类</a>
+      <a href="#oversight"><span>07</span>Oversight</a>
+    </nav>
+    <div class="sidebar-foot"><i></i><span>Demo dataset<br><small id="generatedAt"></small></span></div>
+  </aside>
+
+  <main>
+    <header class="topbar">
+      <div><p class="eyebrow">AFFILIATE PERFORMANCE SYSTEM</p><h1>联盟业务经营驾驶舱</h1></div>
+      <div class="top-actions"><span class="status-dot preview" id="dataStatus">公开脱敏演示</span><button class="ghost" id="exportBtn">导出当前视图</button></div>
+    </header>
+
+    <div class="release-banner" id="releaseBanner" role="status" aria-live="polite">
+      <div class="release-icon">QA</div>
+      <div class="release-copy"><span id="releaseEyebrow">PUBLIC · SANITIZED DEMO</span><strong id="releaseTitle">公开演示版 · 不含正式业务数据</strong><p id="releaseCopy"></p></div>
+      <div class="release-actions"><span class="release-chip" id="masterReleaseChip">匿名档案</span><span class="release-chip warning" id="factsReleaseChip">模拟经营数据</span><a href="#oversight">查看数据状态 →</a></div>
+    </div>
+
+    <section class="control-panel" aria-label="分析条件">
+      <div class="control-group date-group"><label>分析周期</label><div><input type="date" id="startDate"><span>—</span><input type="date" id="endDate"></div></div>
+      <div class="control-group"><label>快捷周期</label><div class="segmented" id="presets"><button data-days="7">7D</button><button class="active" data-days="14">14D</button><button data-days="28">28D</button></div></div>
+      <div class="control-group"><label>归因模型</label><select id="modelFilter"><option value="u">U 型归因</option><option value="lc">Last Click</option></select></div>
+      <div class="control-group"><label>市场</label><select id="marketFilter"><option>All</option><option>US</option><option>CA</option></select></div>
+      <div class="control-group"><label>平台</label><select id="platformFilter"><option>All</option><option>Awin</option><option>Impact</option><option>CJ</option></select></div>
+      <button class="primary" id="applyBtn">应用分析</button>
+      <p class="compare-note">自动对比：<strong id="priorLabel"></strong>（等长前序周期）</p>
+    </section>
+
+    <section class="hero reveal" id="overview">
+      <div class="hero-copy"><p class="eyebrow">EXECUTIVE READOUT</p><h2 id="heroTitle"></h2><p id="heroNarrative"></p><div class="hero-tags" id="heroTags"></div></div>
+      <aside class="decision-card"><span>本期经营建议</span><strong id="decisionTitle"></strong><p id="decisionCopy"></p><button data-scroll="drivers">查看变化归因 →</button></aside>
+    </section>
+
+    <section id="compare" class="section reveal">
+      <div class="section-head"><div><p class="eyebrow">PERIOD COMPARISON</p><h2>核心指标与趋势 <span class="metric-source-badge">演示预览</span></h2></div><p>当前周期对比等长前序周期；金额以 USD 计。</p></div>
+      <div class="kpi-grid" id="kpiGrid"></div>
+      <div class="panel trend-panel"><div class="panel-head"><div><h3>GMV 对齐趋势</h3><p id="trendSubtitle"></p></div><div class="legend"><span><i class="current"></i>当前周期</span><span><i class="previous"></i>前序周期</span></div></div><canvas id="trendCanvas" height="260" aria-label="GMV 趋势图"></canvas></div>
+    </section>
+
+    <section id="drivers" class="section reveal">
+      <div class="section-head"><div><p class="eyebrow">DIAGNOSTICS</p><h2>变化归因与异动信号 <span class="metric-source-badge">演示预览</span></h2></div><p>由流量、转化、订单与客单价的同期变化自动生成。</p></div>
+      <div class="anomaly-grid" id="anomalyGrid"></div>
+      <div class="panel"><div class="panel-head"><div><h3>贡献拆解</h3><p>按绝对影响排序，定位增长来源与拖累项。</p></div><div class="tabs" id="driverTabs"><button class="active" data-dimension="platform">平台</button><button data-dimension="publisher">联盟客</button><button data-dimension="type">类型</button></div></div><div class="table-wrap"><table><thead><tr><th>维度</th><th>当前 GMV</th><th>前序 GMV</th><th>变化</th><th>贡献</th><th>判断</th></tr></thead><tbody id="driverTable"></tbody></table></div></div>
+    </section>
+
+    <section id="drilldown" class="section reveal">
+      <div class="section-head"><div><p class="eyebrow">EXPLORATION STUDIO</p><h2>自定义下探分析 <span class="metric-source-badge">演示预览</span></h2></div><p>任选品类、联盟客类型或单个联盟客，所有指标沿用顶部周期、市场、平台与归因口径。</p></div>
+      <div class="drill-controls panel">
+        <div class="control-group"><label>特定品类</label><select id="drillCategory"><option value="All">全部品类</option></select></div>
+        <div class="control-group"><label>联盟客类型</label><select id="drillType"><option value="All">全部类型</option></select></div>
+        <div class="control-group grow"><label>特定联盟客</label><select id="drillPublisher"><option value="All">全部联盟客</option></select></div>
+        <button class="primary" id="drillApplyBtn">生成下探</button><button class="ghost" id="drillResetBtn">重置</button>
+        <div class="drill-path"><span>当前视角</span><strong id="drillPath"></strong></div>
+      </div>
+      <div class="drill-summary" id="drillSummary"></div>
+      <div class="panel"><div class="panel-head"><div><h3 id="drillTableTitle">联盟客表现明细</h3><p id="drillTableSubtitle"></p></div><span class="local-badge" id="drillCount"></span></div><div class="table-wrap"><table><thead><tr><th>联盟客</th><th>类型</th><th>品类贡献</th><th>责任人</th><th>GMV</th><th>订单</th><th>成本</th><th>ROAS</th><th>转化率</th><th>环比</th><th>变化判断</th></tr></thead><tbody id="drillTable"></tbody></table></div></div>
+    </section>
+
+    <section id="publishers" class="section reveal">
+      <div class="section-head"><div><p class="eyebrow">PUBLISHER 360</p><h2>联盟客全景库</h2></div><div><span class="local-badge" id="publisherDataBadge">主数据加载中</span></div></div>
+      <div class="notice"><strong>公开演示：</strong>所有联盟客、联系方式和经营数字均为匿名模拟数据，仅用于展示界面与分析交互。</div>
+      <div class="publisher-summary" id="publisherSummary"></div>
+      <div class="panel"><div class="toolbar publisher-toolbar"><input type="search" id="publisherSearch" placeholder="搜索联盟客 / Campaign ID / 邮箱"><select id="typeFilter"><option>全部类型</option></select><select id="publisherOwnerFilter"><option>全部负责人</option></select><select id="statusFilter"><option>全部状态</option><option>Active</option><option>Paused</option><option>Sleep</option><option>Pending</option></select><select id="contactFilter"><option value="All">全部联系方式</option><option value="Ready">有邮箱</option><option value="Missing">待补全邮箱</option></select><select id="riskFilter"><option value="All">全部风险</option><option value="Review">需要处理</option><option value="High">高风险</option><option value="Manual">人工确认项</option><option value="Healthy">暂无异常</option></select></div><div class="table-wrap publisher-table-wrap"><table><thead><tr><th>联盟客</th><th>联系方式</th><th>平台 / 站点</th><th>核实类型</th><th>负责人</th><th>状态</th><th>GMV</th><th>净销售额</th><th>环比</th><th>订单</th><th>ROAS</th><th>净 ROAS</th><th>新客率</th><th>CAC</th><th>漏斗</th><th>风险标签</th><th></th></tr></thead><tbody id="publisherTable"></tbody></table></div><div class="table-footer"><span id="publisherResultCount"></span><button class="ghost small" id="loadMorePublishers">加载更多</button></div></div>
+    </section>
+
+    <section id="portfolio" class="section reveal">
+      <div class="section-head"><div><p class="eyebrow">PORTFOLIO</p><h2>类型、品类与活动组合 <span class="metric-source-badge">演示预览</span></h2></div><p>将规模、增量能力和促销节奏放在同一经营视角。</p></div>
+      <div class="split-grid"><div class="panel"><div class="panel-head"><h3>联盟客类型结构</h3></div><div id="typeBars" class="bars"></div></div><div class="panel"><div class="panel-head"><h3>成交品类结构</h3></div><div id="categoryBars" class="bars"></div></div></div>
+      <div class="panel activity-panel"><div class="panel-head"><h3>营销活动时间轴</h3></div><div id="activityTimeline" class="timeline"></div></div>
+    </section>
+
+    <section id="oversight" class="section reveal">
+      <div class="section-head"><div><p class="eyebrow">OVERSIGHT</p><h2>数据治理与管理关注项</h2></div><p>让结论可追溯，让异常有负责人。</p></div>
+      <div class="panel release-panel">
+        <div class="panel-head"><div><h3>数据发布状态</h3><p id="releaseQaScope"></p></div><span class="local-badge" id="releaseGateBadge">正式事实表未发布</span></div>
+        <div class="release-metrics" id="releaseMetrics"></div>
+        <div class="release-boundary"><strong>当前可用边界</strong><p id="releaseBoundary"></p></div>
+      </div>
+      <div class="oversight-grid" id="oversightGrid"></div>
+      <div class="panel responsibility-panel"><div class="panel-head"><div><h3>平台责任矩阵</h3><p>当前已开通站点与可选运营范围；每个具体联盟客只保留一名责任人。</p></div></div><div id="responsibilityGrid" class="responsibility-grid"></div></div>
+      <div class="panel governance"><div><span>归因模型</span><strong id="governanceModel"></strong></div><div><span>映射发布门槛</span><strong id="mappingCoverage"></strong></div><div><span>正式事实表</span><strong id="costCoverage"></strong></div><div><span>数据时区</span><strong id="timezone"></strong></div></div>
+    </section>
+    <footer>GARVEE Affiliate Intelligence · Public sanitized demo · No production or order-level data</footer>
+  </main>
+
+  <dialog id="publisherDetailDialog" class="detail-dialog"><form method="dialog"><div class="dialog-head"><div><p class="eyebrow">PUBLISHER 360</p><h2 id="publisherDetailTitle"></h2><p id="publisherDetailMeta"></p></div><button value="cancel" class="close" aria-label="关闭">×</button></div><div id="publisherDetailBody"></div><div class="dialog-actions"><button value="cancel" class="primary">关闭</button></div></form></dialog>
+
+  <script src="data.js"></script><script src="app.js"></script>
+</body>
+</html>
